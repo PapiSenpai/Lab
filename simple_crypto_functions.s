@@ -21,15 +21,15 @@ EN_WHL_R5_LT_R1:
 	blGE r5, EN_END_WHL_R5_LT_R1 // step #5_en - if R5 greater than or equal to R1, branch to EN_END_WHL_R5_LT_R1
 	ldrb r6, r0[r5] // step #6_en - load byte into register R6, the contents of R0[R5]
 	ldrb r7, r2[r4] // step #7_en - load byte into register R7, the contents of R2[R4]
-	or r6, r6, r7 // step #8_en - exclusive or R6 and R7, storing result in R6
-	// step #9_en - use bitwise AND with R5 and #255 to cast R5's value as char instead of int, store in R7
+	OR r6, r6, r7 // step #8_en - exclusive or R6 and R7, storing result in R6
+	AND r7, r5, #255 // step #9_en - use bitwise AND with R5 and #255 to cast R5's value as char instead of int, store in R7
 	add r6, r6, r7 // step #10_en - add R6 and R7, storing result in R6
 	strb r6, r0[r5] // step #11_en - store byte in R6 to R0[R5]
-	// step #12_en - increment R4 by one
+	inc r4 // step #12_en - increment R4 by one
 EN_IF_R4_GE_R3:
 	cmp r4, r3 // step #13_en - compare R4 and R3 in this order of the registers
 	movGE r4, #0// step #14_en - do conditional execution, move if greater than or equal, into R4 the value #0
-	// step #15_en - increment R5 by one
+	inc r5 // step #15_en - increment R5 by one
 	bl EN_WHL_R5_LT_R1 // step #16_en - branch (or branch ALways) back to EN_WHL_R5_LT_R1 label
 EN_END_WHL_R5_LT_R1:
 	pop {r4, r5, r6, r7, LR} // step #17_en - restore the registers R4,R5,R6,R7, and PC; in the order of registers given
@@ -54,16 +54,16 @@ DE_WHL_R5_LT_R1:
 	cmp r5, r1 // step #4_de - compare R5 and R1 in this order of the registers
 	blGE r1, DE_END_WHL_R5_LT_R1 // step #5_de - if R5 greater than or equal to R1, branch to DE_END_WHL_R5_LT_R1
 	ldrb r6, r0[r5]// step #6_de - load byte into register R6, the contents of R0[R5]
-	// step #7_de - use bitwise AND with R5 and #255 to cast R5's value as char instead of int, store in R7
+	AND r7, r5, #255 // step #7_de - use bitwise AND with R5 and #255 to cast R5's value as char instead of int, store in R7
 	sub r6, r6, r7 // step #8_de - subtract R6 and R7, storing result in R6
 	ldbr r7, r2[r4] // step #9_de - load byte into register R7, the contents of R2[R4]
-	// step #10_de - exclusive or R6 and R7, storing result in R6
+	OR r6, r6, r7// step #10_de - exclusive or R6 and R7, storing result in R6
 	strb r6, r0[r5] // step #11_de - store byte in R6 to R0[R5]
-	// step #12_de - increment R4 by one
+	inc r4 // step #12_de - increment R4 by one
 DE_IF_R4_GE_R3:
 	cmp r4, r3 // step #13_de - compare R4 and R3 in this order of the registers
 	movGE r4, #0 // step #14_de - do conditional execution, move if greater than or equal, into R4 the value #0
-	// step #15_de - increment R5 by one
+	inc r5 // step #15_de - increment R5 by one
 	bl DE_WHL_R5_LT_R1 // step #16_de - branch (or branch ALways) back to DE_WHL_R5_LT_R1 label
 DE_END_WHL_R5_LT_R1:
 	pop {r4, r5, r6, r7, LR} // step #17_en - restore the registers R4,R5,R6,R7, and PC; in the order of registers given
