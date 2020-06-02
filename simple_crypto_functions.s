@@ -12,7 +12,7 @@
 ///
 .align 4
 encrypt:
-	push {r4, r5, r6, r7, LP} // step #1_en - Save R4,R5,R6,R7, and LR
+	push {r4, r5, r6, r7, LR} // step #1_en - Save R4,R5,R6,R7, and LR
 	mov r4, #0 // step #2_en - Set register R4 to 0
 	mov r5, #0 // step #3_en - Set register R5 to 0
 
